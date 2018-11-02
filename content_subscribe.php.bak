@@ -1,0 +1,634 @@
+<?php
+$title = $lang['mysubscriptions'];
+include("php/pricing.php"); 
+include("php/drillTools.php"); 
+
+if(!$connected)
+{
+	header( 'Location: fxm.php?page=login' );
+	die();
+}
+
+
+
+$allowedToSubscribe = false;
+$nextSubscriptionDate = getClientCurrentDate();	
+if(!$hasSubscribed) 
+{
+	$allowedToSubscribe = true;
+}
+else
+{
+	$nextSubscriptionDate = allowedToSubscribe($validSubscription);
+	if($nextSubscriptionDate != null) $allowedToSubscribe = true;		
+}
+
+if(!$allowedToSubscribe) {
+	header( 'Location: fxm.php?page=dashboard' );
+	die();
+}
+
+?>
+<script type="text/javascript">	
+/*	
+	window.onload = function(){ 
+		var str = $('.stripe-button-el');
+		str.removeClass('stripe-button-el');
+		str.addClass('greenButton');
+		str[0].innerHTML = str[0].innerHTML.replace("pour", "<br/>");
+		str[1].innerHTML = str[1].innerHTML.replace("pour", "<br/>");
+		str[0].style.width = "100px";str[1].style.width = "100px";
+		str[0].style.fontSize = "16px";str[1].style.fontSize = "16px";
+		
+	}
+	*/
+
+
+</script> 
+
+<div class="content-container">
+	<div class="block-container">
+		<!--BLOC PRINCIPAL DES EXERCICES -->
+		<div class="main-block">
+			<div class="block-content">
+				<?php
+				$prefpage = "subscribe";
+				include("content_menu_preferences.php"); 
+				?>
+
+				<div style="text-align:justify;">
+					<div class="circleContainer">
+						<div class="circleBlue"></div>
+						<img alt="School" src="images/school.png" class="circleImg" />
+					</div>
+					<h3>Accès à la formation complète<p></p>6 modules et 61 unités pour maîtriser le manche une fois pour toutes</h3>
+
+
+					<p></p>
+					<div style="width:100%;text-align:center;">
+						<form  class="" style="display: inline-block;" id="buttonPrice6" style="display:block;" action="fxm.php?page=sub" method="POST">
+							<script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+							data-key="pk_live_P4bc4xwHrdGDD9AFA9dxueh4"
+							data-amount="<?php echo($pricing['FM06EUR_stripelabel']); ?>"
+							data-name='FretXMaster'
+							data-description="Accès pour 6 mois: 27 €"		
+							data-image="images/FXM.jpg"
+							data-locale="<?php echo($language); ?>"
+							data-currency="EUR"
+							data-email="<?php echo($connectedAs); ?>"
+							data-label="6 mois pour 4,5 € /mois"
+							data-panel-label="Valider" async defer>
+						</script>
+						<input type="hidden" name="pricing" value="06">
+					</form>
+							<!--data-label="6 mois pour 27 €"-->
+
+					<form  id="buttonPrice12" style="display: inline-block;"  action="fxm.php?page=sub" method="POST">
+						<script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+						data-key="pk_live_P4bc4xwHrdGDD9AFA9dxueh4"
+						data-amount="<?php echo($pricing['FM12EUR_stripelabel']); ?>"
+						data-name='FretXMaster'
+						data-description="Accès pour 1 an: 47 €"		
+						data-image="images/FXM.jpg"
+						data-locale="<?php echo($language); ?>"
+						data-currency="EUR"
+						data-email="<?php echo($connectedAs); ?>"
+						data-label="1 an pour 3,9 € /mois"
+						data-panel-label="Valider" async defer>												
+					</script>
+					<input type="hidden" name="pricing" value="12">
+
+				</form>
+				<br/><span class="hint">Paiement unique, sécurisé par Stripe</span>
+			</div>
+			<p></p>
+			<span class="hint" style="color:black;font-weight:normal;">
+				C'est sans aucun risque ! Abonnez-vous, et si au bout de <b>30 jours</b>, vous pensez que FretXMaster ne fera pas de vous un meilleur guitariste, dîtes-le nous et <b>nous vous rembourserons intégralement</b>. Tout simplement !
+			</span>
+			<p></p>
+			<hr/>
+
+			<p></p>
+			Énormément de guitaristes ou de bassistes, même après plusieurs années de pratique, ne connaissent toujours pas les notes sur leur instrument, et se retrouvent bloqués à un niveau intermédiaire. L’étape de la parfaite maîtrise des notes de la guitare est essentielle pour passer au niveau supérieur.
+			<p></p>
+
+			<h3>En suivant la formation FretXMaster sur le long-terme :</h3>
+			<p></p><img class="checkSubscribe" src="images/check.png" /><b>Vous aurez une pleine compréhension de ce vous êtes en train de jouer: accords, gammes, notes...</b>
+			<br/>
+			Vous comprendrez mieux la construction des accords. Fini d’apprendre les accords bêtement comme des positions (”un doigt ici, un doigt là…”), vous réaliserez que chaque note jouée a un rôle spécifique sur les sonorités d’un accord.
+			Et en les comprenant mieux, vous les retiendrez mieux, vous pourrez jouer n’importe quel accord à n’importe quel endroit du manche et vous serez même capables d’en créer vous-même, à la volée.
+			Vous comprendrez également bien mieux les gammes, les retiendrez beaucoup plus vite et les utiliserez de manière naturelle, sans réfléchir.
+
+			<p></p><img class="checkSubscribe" src="images/check.png" /><b>Vous serez beaucoup plus à l'aise en improvisation</b>
+			<br/>
+			Lorsqu’on improvise sans connaître les notes, on joue souvent à tâtons, et en faisant beaucoup d’erreurs par manque de maîtrise! En maîtrisant les notes, vous ne vous inquiéterez même plus de la justesse des notes que vous jouez. Vous pourrez laisser aller votre créativité et votre inspiration. Vous aurez l’esprit libre pour vous concentrer sur la musique.
+			En voyant d’autres musiciens jouer, vous comprendrez très vite ce qu’ils font, quels accords ils jouent, dans quelles gammes ils évoluent… Tout cela prendra du sens pour vous.
+			Maîtriser son instrument est libérateur, vous jouerez avec d’autres musiciens sans rougir ni avoir peur de ne pas être à la hauteur.
+
+			<p></p><img class="checkSubscribe" src="images/check.png" /><b>Vous saurez lire une partition (pas juste une tablature)</b>
+			<br/>
+			Lire une partition est un outil de poids pour communiquer avec d’autres musiciens. C’est souvent cette lacune qui fait passer les guitaristes pour des amateurs, et ne sont pas vraiment considérés comme des musiciens.
+
+			<p></p><img class="checkSubscribe" src="images/check.png" /><b>Vous boosterez votre motivation</b>
+			<br/>
+			Parfois, au bout de quelques années, on commence à perdre une certaine motivation, car on a l’impression de ne plus avancer et on ne sait pas trop comment faire. Apprendre les notes de la guitare permet de s’ouvrir à de nouvelles possibilités et relance la motivation et l’excitation des débuts.
+			Le vrai bénéfice apparaît non pas lorsqu'on commence à connaître le manche, mais lorsqu'on le maitrise fondamentalement, quand il devient naturel, et qu’on ne se pose plus la question en jouant.
+
+			<p></p><img class="checkSubscribe" src="images/check.png" /><b>Vous vous sentirez beaucoup plus confiant en jouant et vous serez plus relaxé, ce qui est essentiel pour acquérir un haut niveau dans la pratique d’un instrument.</b>
+
+
+
+
+
+<!--
+
+
+
+
+			<hr/>
+			<div class="circleContainer">
+				<div class="circleBlue"></div>
+				<img alt="School" src="images/school.png" class="circleImg" />
+			</div>
+			<h3>Comment FretXMater va m'aider ?</h3><p></p>
+
+
+			PROBLEME:
+			Autodidactes ne connaissent pas le manche
+			Passe du temps à trouver le nom d'une note
+			Connaissance partielle des gammes, accords
+			Pas au niveau des vrais musiciens
+			pas de possibilité de communication
+			Ca s'oublit super vite
+			Galèrent à apprendre
+			Chiant à apprendre
+
+			<br/>FAUSSES SOLUTIONS
+			Essayer d'apprendre seul => on oublie, on ne s'y tiens pas
+			NE pas les apprendre => toujours pas de connaissance
+
+			<br/>SOLUTIONS
+			Ne s'oublie pas grace au SRS
+			Te dis quand travailler
+
+			Mode intéractif
+			<br/>COUT DE NE PAS AGIR
+			Reste un petit guitariste de rien qui n'est oas un vrai musicien, avec exmeple du pianiste et tout
+			<br/>
+			<br/>
+			la base quon oublie maitriser le manche
+			Le problème n'est de connaitre suffisaemment de gammes, ou d'accords; le vrai problème c'est qu'on ne maitrise même pas le bases; on ne maitrise l'élement de base qui permet de comprendre profondemmment le manchde de guitare, c'est la grammaire, le vocabulkire de base du muscien, ce'st comme essayer de lire un livre sans connaitre de vocabulaire, on pourra peut-être prononcer les mots mais on ne pourra jamais en comprendre la signification profonde.
+
+			<p></p>
+			Il faut donc prendre un peu de temps pour revenir à la base et non pas juste apprendre les notes passivement en s'entraianat un peu, mais ancrer les notes profondemment dans son cerverau, le but est de conaitre le macnhe d emaniere natiurel, comm s'il était un prolongement de soi meme. Quand on lit un livre, on ne prend chaque mot un par un en analysant sa signification. On voit tout de suite le sens de la phrase parcequon maitrise le vocabulaire de base, on ne pas avancer tant qu'on ne maitrise pas les bases. on peut apprendre toute les gammes du mondes, si on a pas une visoinb éclairée du manche, c'est impossible d'en faire quoi que ce soit
+			C'est un leurre de vouloir, une erreur d'autodidacte, de vouloir développer son jeu sans faire l'effort de maitriser le manche
+
+			<p></p>
+			revenir au bases et se considérer comme un musicien, important pour sa valeur en tant que musicien, on plus à rougir 
+			un guitariste n'est pas un sous-musicien, ils ne sont pas plus bête que n'importer quel autre musicien
+
+
+
+			<hr/>
+			<div class="circleContainer">
+				<div class="circleBlue"></div>
+				<img alt="School" src="images/school.png" class="circleImg" />
+			</div>
+			<h3>Est-ce fait pour moi ?</h3><p></p>
+			L'apprentissage du manche est un apprentissage sans fin, mais qui, grâce au système de répétition espacée, prend du moins en moins de temps et s'ancre de plus en plus profondemment dans son jeu au quotidien.
+
+
+
+
+			marketing negatif, dire que c pas pour tout le monde (ke pr les gens seriues, ki veulent aller loin)
+
+
+			<p></p>
+			nimporte guitariste peut maitriser tout ca en faisantr jutse ca cet effort simple , ca ouvre énormement de porte , on a une lecture différente du manche, comme si on le comprenais moeix
+			Ce'sest une formation pour ceux qui veulement réélement booster leur apprentissage et qui prennent leur apprentisasge de la guitare au sérieux. SI vous jouez juste un peu comme ça et que la progression n'est pas un objectif pour vous, ne fautes pas cette formaiont, vous n'aurez probablement pas la motivation d'aller jusqu'au bout, c'est une formation exigeante qui apporte des résultats à qui veut vraiment avancer. Ca ne sert à rien de faire la formation à moitité, l'idée ici , est de lire la guitare comme si elle était une partie de nous - mm
+
+			Si tu veux vraiement avancer, tu ne peux pas y échapper
+
+			<p></p>
+
+
+
+
+
+
+
+
+
+
+			<hr/>
+			<div class="circleContainer">
+				<div class="circleBlue"></div>
+				<img alt="School" src="images/school.png" class="circleImg" />
+			</div>
+			<h3>Comment ça marche ?</h3>
+
+
+
+			9 plan (benefice)
+
+			tout au long de la formation, on utilisera le SRS, qui est une technique puissante pour ancrer des choses dans sa mémoire )à long terme, pour , au bout du compte maitriser ça comme si c'eétit naturel, comme si c'est qqchose que tu savais faire depuis toujors
+
+			La formation est divisée en 6 modules, chaque module a sa propore spécialité
+			Le module 1 t'inititera à la maitrise des des cordes à vide et ce sera une premirer en tre en matière pour l'apprentissage des partitions
+			Le module 2 prendra le manche de manière horizontale en se focalisant sur les notes naturellles car elles sont des points de reperes capitaux dans la visulaition du manche
+
+			Le module 3 prolongera le module 2 en restant sur un axe horizontal en en y incluant aussi les note accidentelles (dieses et bemol), en les prenant chacun leur tour puis en les mélengeat 
+			Le module 4 commence la maitrise verticale du manche et ce'est l'une des clé de cette formation, mélanger les axes mutliplie les possibilités de visualition et augmente la maitrise du manche en étant capable de visulaoser plusoeur axes
+
+			Le module 5 généralise le module 4 een augmentant la taille des zones d'étude, c'est la qu'on commencera à voir le manche comme un tout , c'est en augmentant les zones progressivement qu'on va faire que le cereau intégre la manche comme un tout
+
+			Le modulke 6 est un module spécial qui va mettrre en scene des séquences spécifiques du manche qui vont désorienter le cerveau acquérir la capacité de s'y retrouver mm en situation inhabituelle, de difficulté, c'est la touche finale
+			--
+
+			explication des modules et les benefices a chaque fois (horizontal / transversal)
+			concept cérébral
+
+			parler des résultat à chauqe fin de module 
+			résulatt tangible, la personne simahgine en train de l'utiliser (chq jour tu passer
+			a2mn à utiliser le truc) 
+
+			<p></p>
+
+-->
+
+
+
+			<hr/>
+			<div class="circleContainer">
+						<div class="circleBlue"></div>
+						<img alt="School" src="images/school.png" class="circleImg" />
+					</div>
+					<h3>Accès à la formation complète<p></p>6 modules et 61 unités pour maîtriser le manche une fois pour toutes</h3>
+
+
+					<p></p>
+					<div style="width:100%;text-align:center;">
+						<form  class="" style="display: inline-block;" id="buttonPrice6" style="display:block;" action="fxm.php?page=sub" method="POST">
+							<script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+							data-key="pk_live_P4bc4xwHrdGDD9AFA9dxueh4"
+							data-amount="<?php echo($pricing['FM06EUR_stripelabel']); ?>"
+							data-name='FretXMaster'
+							data-description="Accès pour 6 mois: 27 €"		
+							data-image="images/FXM.jpg"
+							data-locale="<?php echo($language); ?>"
+							data-currency="EUR"
+							data-email="<?php echo($connectedAs); ?>"
+							data-label="6 mois pour 4,5 € /mois"
+							data-panel-label="Valider" async defer>
+						</script>
+						<input type="hidden" name="pricing" value="06">
+					</form>
+							<!--data-label="6 mois pour 27 €"-->
+
+					<form  id="buttonPrice12" style="display: inline-block;"  action="fxm.php?page=sub" method="POST">
+						<script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+						data-key="pk_live_P4bc4xwHrdGDD9AFA9dxueh4"
+						data-amount="<?php echo($pricing['FM12EUR_stripelabel']); ?>"
+						data-name='FretXMaster'
+						data-description="Accès pour 1 an: 47 €"		
+						data-image="images/FXM.jpg"
+						data-locale="<?php echo($language); ?>"
+						data-currency="EUR"
+						data-email="<?php echo($connectedAs); ?>"
+						data-label="1 an pour 3,9 € /mois"
+						data-panel-label="Valider" async defer>												
+					</script>
+					<input type="hidden" name="pricing" value="12">
+
+				</form>
+				<br/><span class="hint">Paiement unique, sécurisé par Stripe</span>
+			</div>
+			<p></p>
+			<span class="hint" style="color:black;font-weight:normal;">
+				C'est sans aucun risque ! Abonnez-vous, et si au bout de <b>30 jours</b>, vous pensez que FretXMaster ne fera pas de vous un meilleur guitariste, dîtes-le nous et <b>nous vous rembourserons intégralement</b>. Tout simplement !
+			</span>
+
+	<!--
+	<p></p><b>Accès 6 mois</b><br/>
+	L'accès pour 6 mois permet de couvrir le programme FretXMaster et d'intégrer la majeure partie du manche dans votre mémoire à long-terme.
+
+	<p></p><b>Accès 1 an</b><br/>
+	L'accès pour un 1 an permet, en plus de l'accès 6 mois, de s'assurer de la parfaite maîtrise de la totalité du manche sur le très long-terme.
+	<br/>
+	<b>Vous économisez 7€</b> par rapport à l'accès 6 mois. 
+
+	<p></p>
+	Accéder à la formation complète pour  4,5 par mois, le prix d'un café par semaine pour reprndre le controle de la guitare et se lancer sérieusement  
+	27 / 47 
+	maitriser la manche avec fxm peut vous faire économiser des heures de cours avec un profs mais surtout des mois, voir des années de pratique
+	vous apprendrez tout plus, tous les concepts que l'on trouve dans le monde de la guitare auront une consonnace différentes et vous n'apprendrez plus juste des positions sans comprendre le fond
+	ca teconomisera des heures de cours
+	tu apprendra tout plus vite
+
+	Ceraitns guitaristes passent des années avant de démarrer sérieusement cet apprentissagfe, c'est un temps précieux qui aurait plus être boosté en démarrant par la base.	donnez-vous quelques mois pour changer
+
+
+
+
+
+	12 cout des alternatives
+	(ne pas agir)
+	tu va toujours galérer à comprendre les trucs
+
+	en continuant sans prendre les bases, on ne peut pas aller au fond de la maitrise des sujets , il y a forcement un moment où la progression va heurter un plafond car on ne peut pas indéfiniment penser devenir un grand écraivain sans connaitre le vocabulaire
+	<p></p>
+
+
+
+
+	dès le paiement, vous serez redirigé vers votre espace d'abonnement. dès aujourdh'ui vous pourrez démarrer le programme complet d'apprentissage du manche, dans la page d'accueil toutes les unités seront débloquées, tous les niveaux seront accessibles, il n'y aura qu'à cliquer sur les unités, sélectionner sa vitesse et c'est parti
+	et chaque jour, suivez vos quelques sessions de FXM et laissez la maitrise s'ancrer dans votr emémoire à lg terme
+-->
+</div>
+
+
+</div>
+</div>
+
+<?php 
+$prefpage = "subscribe";
+include("content_side_preferences.php"); 
+?>
+</div>
+
+</div>
+
+
+<script type="text/javascript">	
+
+	
+
+
+	var str = $('.stripe-button-el');
+
+	if(str.length > 0)
+	{
+
+
+		str.removeClass('stripe-button-el');
+		str.addClass('greenButton');
+		str[0].innerHTML = str[0].innerHTML.replace(/pour/g, "<br/>");
+		str[1].innerHTML = str[1].innerHTML.replace(/pour/g, "<br/>");
+		str[0].style.width = "100px";str[1].style.width = "100px";
+		str[0].style.fontSize = "16px";str[1].style.fontSize = "16px";
+
+		str[2].innerHTML = str[2].innerHTML.replace(/pour/g, "<br/>");
+		str[3].innerHTML = str[3].innerHTML.replace(/pour/g, "<br/>");
+		str[2].style.width = "100px";str[3].style.width = "100px";
+		str[2].style.fontSize = "16px";str[3].style.fontSize = "16px";
+	}
+	
+
+
+</script> 
+
+<!--
+
+				<br/>
+				PROBLEME:
+				Autodidactes ne connaissent pas le manche
+				Passe du temps à trouver le nom d'une note
+				Connaissance partielle des gammes, accords
+				Pas au niveau des vrais musiciens
+				pas de possibilité de communication
+				Ca s'oublit super vite
+				Galèrent à apprendre
+				Chiant à apprendre
+
+				<br/>FAUSSES SOLUTIONS
+				Essayer d'apprendre seul => on oublie, on ne s'y tiens pas
+				NE pas les apprendre => toujours pas de connaissance
+
+				<br/>SOLUTIONS
+				Ne s'oublie pas grace au SRS
+				Te dis quand travailler
+
+				Mode intéractif
+				<br/>COUT DE NE PAS AGIR
+				Reste un petit guitariste de rien qui n'est oas un vrai musicien, avec exmeple du pianiste et tout
+				<br/>
+				<br/>
+
+				<p></p>
+
+				page de vente
+
+				1 promesse
+				x sans y, formule mysterieuse
+				marketing negatif, dire que c pas pour tout le monde (ke pr les gens seriues, ki veulent aller loin)
+
+				Comment maîtriser le manche de guitare sans y passer des heures ?
+				<p></p>
+
+				2 ce que tu veux
+				(pk)
+				pk ils veulent le résultat
+
+				
+
+				<p></p>
+
+				3 obstacles
+				les pb 
+				on sait pas exactement comment progresser
+				très difficile d'apprendre seul
+				<p></p>
+
+				4 vrai pb : pas x mais y
+				la base quon oublie maitriser le manche
+				Le problème n'est de connaitre suffisaemment de gammes, ou d'accords; le vrai problème c'est qu'on ne maitrise même pas le bases; on ne maitrise l'élement de base qui permet de comprendre profondemmment le manchde de guitare, c'est la grammaire, le vocabulkire de base du muscien, ce'st comme essayer de lire un livre sans connaitre de vocabulaire, on pourra peut-être prononcer les mots mais on ne pourra jamais en comprendre la signification profonde.
+				<p></p>
+
+				5 ce dt vous avez vraiment besoin
+				solution fxm
+
+				Il faut donc prendre un peu de temps pour revenir à la base et non pas juste apprendre les notes passivement en s'entraianat un peu, mais ancrer les notes profondemment dans son cerverau, le but est de conaitre le macnhe d emaniere natiurel, comm s'il était un prolongement de soi meme. Quand on lit un livre, on ne prend chaque mot un par un en analysant sa signification. On voit tout de suite le sens de la phrase parcequon maitrise le vocabulaire de base, on ne pas avancer tant qu'on ne maitrise pas les bases. on peut apprendre toute les gammes du mondes, si on a pas une visoinb éclairée du manche, c'est impossible d'en faire quoi que ce soit
+				C'est un leurre de vouloir, une erreur d'autodidacte, de vouloir développer son jeu sans faire l'effort de maitriser le manche
+				<p></p>
+
+				6 résultat
+				r1 - tu 
+				r2 - 
+				
+				FXM t'apprend aussi à lire une partition, en ce qui 
+				la plupart des autodidactes nes sonst pas vu comme des musiciens pa cequils ne savent pas lir eune partition, c'est un outil de communication exceptionnel avace les autres musicien. Si tu veux être perçu comme un musien ,et npon pas un guitariste
+
+				nimporte guitariste peut maitriser tout ca en faisantr jutse ca cet effort simple , ca ouvre énormement de porte , on a une lecture différente du manche, comme si on le comprenais moeix
+				Ce'sest une formation pour ceux qui veulement réélement booster leur apprentissage et qui prennent leur apprentisasge de la guitare au sérieux. SI vous jouez juste un peu comme ça et que la progression n'est pas un objectif pour vous, ne fautes pas cette formaiont, vous n'aurez probablement pas la motivation d'aller jusqu'au bout, c'est une formation exigeante qui apporte des résultats à qui veut vraiment avancer. Ca ne sert à rien de faire la formation à moitité, l'idée ici , est de lire la guitare comme si elle était une partie de nous - mm
+
+				Si tu veux vraiement avancer, tu ne peux pas y échapper
+
+				,imoprte quel x peut y - 
+				limite : pk ca marcherait pas
+				annulation de la limite
+				nimporte quel x puet y parce que z
+				<p></p>
+
+				7 histoire (optionnel)
+				<p></p>
+
+				8 grande idée
+				revenir au bases et se considérer comme un musicien, important pour sa valeur en tant que musicien, on plus à rougir 
+				un guitariste n'est pas un sous-musicien, ils ne sont pas plus bête que n'importer quel autre musicien
+				<p></p>
+
+				9 plan (benefice)
+
+				tout au long de la formation, on utilisera le SRS, qui est une technique puissante pour ancrer des choses dans sa mémoire )à long terme, pour , au bout du compte maitriser ça comme si c'eétit naturel, comme si c'est qqchose que tu savais faire depuis toujors
+
+				La formation est divisée en 6 modules, chaque module a sa propore spécialité
+				Le module 1 t'inititera à la maitrise des des cordes à vide et ce sera une premirer en tre en matière pour l'apprentissage des partitions
+				Le module 2 prendra le manche de manière horizontale en se focalisant sur les notes naturellles car elles sont des points de reperes capitaux dans la visulaition du manche
+
+				Le module 3 prolongera le module 2 en restant sur un axe horizontal en en y incluant aussi les note accidentelles (dieses et bemol), en les prenant chacun leur tour puis en les mélengeat 
+				Le module 4 commence la maitrise verticale du manche et ce'est l'une des clé de cette formation, mélanger les axes mutliplie les possibilités de visualition et augmente la maitrise du manche en étant capable de visulaoser plusoeur axes
+
+				Le module 5 généralise le module 4 een augmentant la taille des zones d'étude, c'est la qu'on commencera à voir le manche comme un tout , c'est en augmentant les zones progressivement qu'on va faire que le cereau intégre la manche comme un tout
+
+				Le modulke 6 est un module spécial qui va mettrre en scene des séquences spécifiques du manche qui vont désorienter le cerveau acquérir la capacité de s'y retrouver mm en situation inhabituelle, de difficulté, c'est la touche finale
+				--
+
+				explication des modules et les benefices a chaque fois (horizontal / transversal)
+				concept cérébral
+
+				parler des résultat à chauqe fin de module 
+				résulatt tangible, la personne simahgine en train de l'utiliser (chq jour tu passer
+				a2mn à utiliser le truc) 
+				--
+
+				En quelques minutes par jurs, les progres rélaisés esont immense
+				Chaque , vous vous connecterez sur FXM, il vous présentera les untiés à revoir, ces sessions sont crucial, car ce sont elles qui permettront de renforcer les zones difficle, que vous avez du mal à intégrer et en évitant de passer inutilement du temps sur les zoness maitrise, FXM est comme un coach qui vous observe en vous montrant quelles sont vos forces et vos aiblesse et en vous poussant à vous dépasser et en surpaasant vos faiblesses
+				<p></p>
+
+				10 résultats bis
+				répeter résultat finaux
+				r1 - 
+				r2 - 
+				anulaition limite
+				niporque lx peu y
+				<p></p>
+
+				11 appel a action: ca ne coute rien
+				si mail après inscirption hors fxm (via blog), ne pas montrer touyt de suite qu'il y a un produit à vendre
+
+				Accéder à la formation complète pour  4,5 par mois, le prix d'un café par semaine pour reprndre le controle de la guitare et se lancer sérieusement  
+				27 / 47 
+				pour  4,5 par mois, le prix d'un café par semaine
+
+				maitriser la manche avec fxm peut vous faire économiser des heures de cours avec un profs mais surtout des mois, voir des années de pratique
+				vous apprendrez tout plus, tous les concepts que l'on trouve dans le monde de la guitare auront une consonnace différentes et vous n'apprendrez plus juste des positions sans comprendre le fond
+
+				Nous sommes convaicu que FXM changera radicalement votre apprentissage de la guitare
+				C'est sans aucun risque, vous n'avez rien a perdre, si au bout de 30j vous considérez que FXM n'est pas satisfaisant, nous vous remboursons intégralement.
+				l'idée est de prendre au sérieux en main son apprentissage
+
+				Ceraitns guitaristes passent des années avant de démarrer sérieusement cet apprentissagfe, c'est un temps précieux qui aurait plus être boosté en démarrant par la base.				
+				---
+
+				parler du ROI, ce que ca fait économiser en temps / argent
+				ca coute rien par ceque si t'aime pas tu demande remboursement
+				ca teconomisera des heures de cours
+				tu apprendra tout plus vite
+
+				(ca ne coute rien => inscription)				
+				---
+				<p></p>
+
+
+				12 cout des alternatives
+				(ne pas agir)
+				tu va toujours galérer à comprendre les trucs
+
+				en continuant sans prendre les bases, on ne peut pas aller au fond de la maitrise des sujets , il y a forcement un moment où la progression va heurter un plafond car on ne peut pas indéfiniment penser devenir un grand écraivain sans connaitre le vocabulaire
+				<p></p>
+
+
+				13 comment cam rche concrteement
+				expliquer comment marche l'application (ne pas parler d'application mais toujours une formaultion liée au résultat)
+				se mettre ds le tete de lutillstaeur ,il doit suimaginer l'utiliser
+
+				dès le paiement, vous serez redirigé vers votre espace d'abonnement. dès aujourdh'ui vous pourrez démarrer le programme complet d'apprentissage du manche, dans la page d'accueil toutes les unités seront débloquées, tous les niveaux seront accessibles, il n'y aura qu'à cliquer sur les unités, sélectionner sa vitesse et c'est parti
+				<p></p>
+
+
+
+				14 2 options
+				=> comme avt
+				=> expermient qqch de nouvo
+
+				moi jai mis des année a comprendre que ct essentiel, tu peux toi aussi passer des années a le comprendre, donc vous pouvez continuer à tenter de progresser sans maitriser le manche , soit vous tester quelquechose de nouveau, en décidant de se relever les maanches et d ecommencer sérieusement l'étude de la guitare 
+				<p></p>
+
+				15 appel à l'action 2
+				comment commander, parler de stripe
+				????
+				Pour démarrer, sélectionnez l' qui vous convient le mieux. Le processeur de paiement vous demandera 
+				Les paiement sont sécurisés à l'aide du processeur de paiement Stripe. Aucune donnée n'est conservée sur notre site.
+				<p></p>
+
+				16 objections
+				raison de pas acheter 
+				"meme si" vous etes débutant : x
+				"meme si" vous etes pro : x
+				"meme si" vous pensez que c pas pr vous : x
+				<p></p>
+
+				17 on commence tout de suite, lien avec le début de la formation
+				lien direct pour commencer tout de suite
+				initier le process de maniere tangible (tu clique sur la boule, tu choisi ta vitesse)
+				<p></p>
+			-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

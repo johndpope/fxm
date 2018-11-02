@@ -1,0 +1,463 @@
+<?php
+if(!$connected)
+{
+	header( 'Location: fxm.php?page=login' );
+	die();
+}
+include("business/inventory.php");
+
+$inventory = $user->_character->getInventory();
+//echo $user->_character->getName();
+?>
+
+<script>
+	var details = new Array();
+	details["character"] = "<?php echo $user->_character->getCharacterBase(); ?>"; 
+	details["background"] = "<?php echo $user->_character->getBackground(); ?>"; 
+	details["guitar"] = "<?php echo $user->_character->getGuitarBase(); ?>"; 
+	details["amp"] = "<?php echo $user->_character->getAmp(); ?>"; 
+	details["hair"] = "<?php echo $user->_character->getCharacterBaseHair(); ?>"; 
+	details["cup"] = "<?php echo $user->_character->getCharacterBaseClothesUp(); ?>"; 
+	details["cdo"] = "<?php echo $user->_character->getCharacterBaseClothesDown(); ?>"; 
+	details["access1"] = "<?php echo $user->_character->getCharacterBaseAccess1(); ?>"; 
+	details["access2"] = "<?php echo $user->_character->getCharacterBaseAccess2(); ?>"; 
+
+	<?php
+	if(isset($firstConnection) && $firstConnection == true)
+	{ 
+		?>		
+		window.onload = function(event) {
+			navigateWizard("modalFrame_WizardDash-01");
+		};  		
+		<?php 
+	}
+	?>
+</script>
+
+<div class="content-container">
+	<div class="block-container">
+		<!--BLOC PRINCIPAL DES EXERCICES -->
+		<div class="main-block">
+			<div class="block-content">
+
+				<div class="menuMaker">
+					<span class="makerBlocks makerBlocksSelected" onclick="$('.makerBlocks').removeClass('makerBlocksSelected');$(this).addClass('makerBlocksSelected'); navigating('characterBodySection', 'characterSection');">Caractéristiques</span>
+				<!--CSSPERSO
+					<span class="makerBlocks" onclick="$('.makerBlocks').removeClass('makerBlocksSelected');$(this).addClass('makerBlocksSelected'); navigating('characterClothesSection', 'characterSection');">Vêtements</span>
+				-->
+				<span class="makerBlocks" onclick="$('.makerBlocks').removeClass('makerBlocksSelected');$(this).addClass('makerBlocksSelected'); navigating('characterGuitarSection', 'characterSection');">Aides</span>
+				<!--
+					<span class="makerBlocks" onclick="$('.makerBlocks').removeClass('makerBlocksSelected');$(this).addClass('makerBlocksSelected'); navigating('characterBackgroundSection', 'characterSection');">Environnements</span>
+				-->
+			</div>
+			<p></p>
+
+			<div id="characterBodySection" class="characterSection" onclick="navigating('characterBodySection', 'characterSection');">
+
+				<div class="circleContainer">
+					<div class="circleBlue">
+
+					</div>
+					<img alt="Character" src="images/person.svg" class="circleImg" />
+				</div>
+				<h3>Nom</h3>
+				<p></p>
+
+
+				<input maxlength="32" size="20" type="text" id="characterNameInput" value="<?php echo $user->_character->getName(); ?>" onchange="$('.saveButton').removeClass('saveButtonInactive');"
+				onkeyup="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();"></input>
+
+<!--	CSSPERSO				<hr/>
+
+
+
+					<div class="circleContainer">
+						<div class="circleBlue">
+
+						</div>
+						<img alt="Character" src="images/person.svg" class="circleImg" />
+					</div>
+					<h3>Corps du personnage</h3>
+					
+					<p>			
+						<?php
+						foreach ($characters as $char) {
+							$charTab = explode("|", $char);
+							$img = $charTab[0];
+
+
+							?>				
+							<img class="character-maker-image-ch" name="<?php echo $charTab[0]; ?>" src="images/<?php echo $charTab[0]; ?>.png" alt="<?php echo $charTab[1]; ?>" title="<?php echo $charTab[1]; ?>" onclick="updateCharacterImage(this.name, 'character', details);"/>
+							<?php
+						}
+						?>		
+					</p>
+					<hr/>
+					<div class="circleContainer">
+						<div class="circleBlue">
+
+						</div>
+						<img alt="Character" src="images/person.svg" class="circleImg" />
+					</div>
+					<h3>Cheveux</h3>
+					<p></p>
+					<p id="hair">
+						<?php
+						$selected = $user->_character->getCharacterBaseHair();
+						$body = $user->_character->getCharacterBase();
+
+						foreach ($hair as $obj) 
+						{
+							$objTab = explode("|", $obj);
+							$img = $body."/".$body.$objTab[0];
+
+							if (strpos($inventory, $objTab[0]) !== false || $objTab[2] == "0") 	$classInvisible = "isInvisible";						
+							else $classInvisible = "";
+
+							if($objTab[0] == $selected)	$selector = "object-selector";						
+							else $selector = "";						
+
+							?>
+							<span class="object-frame <?php echo $selector; ?>" id="<?php echo $objTab[0]; ?>" alt="<?php echo $objTab[1]; ?>" title="<?php echo $objTab[1]; ?>">
+								<img class="character-maker-image-ch" name="<?php echo $objTab[0]; ?>" src="images/<?php echo $img; ?>.png" alt="<?php echo $objTab[1]; ?>" />
+								<span id="<?php echo $objTab[0]; ?>-gray" class="object-gray <?php echo $classInvisible; ?>"></span>
+								<img id="<?php echo $objTab[0]; ?>-lock" class="object-lock <?php echo $classInvisible; ?>" src="images/lock.png" />	
+								<span id="<?php echo $objTab[0]; ?>-price" class="object-price <?php echo $classInvisible; ?>"><?php echo $objTab[2]; ?></span>
+								<span class="object-image" id="<?php echo $objTab[0]; ?>" alt="<?php echo $objTab[1]; ?>" title="<?php echo $objTab[1]; ?>" onclick="updateCharacterImage(this.id, 'hair', details);"></span>
+								<span class="object-image <?php echo $classInvisible; ?>" id="<?php echo $objTab[0]; ?>-buy" alt="<?php echo $objTab[1]; ?>" title="<?php echo $objTab[1]; ?>" onclick="buyObject(this.id, 'hair', <?php echo $objTab[2]; ?>, details);"></span>
+							</span>	
+							<?php
+						}
+						?>
+					</p>
+
+
+				-->
+			</div>
+<!--
+			<div id="characterClothesSection" class="characterSection isInvisible">
+
+				<div class="circleContainer">
+					<div class="circleBlue">
+
+					</div>
+					<img alt="Character" src="images/clothes.png" class="circleImg" />
+				</div>
+				<h3>Vêtements</h3>
+				<p id="clothesUp">
+
+					<?php
+
+					/*couches : dessin / lock / prix*/
+
+					$selected = $user->_character->getCharacterBaseClothesUp();
+					$body = $user->_character->getCharacterBase();
+
+
+					foreach ($clothesUp as $obj) 
+					{
+						$objTab = explode("|", $obj);
+						$img = $body."/".$body.$objTab[0];
+
+						if (strpos($inventory, $objTab[0]) !== false || $objTab[2] == "0") 	$classInvisible = "isInvisible";						
+						else $classInvisible = "";
+
+						if($objTab[0] == $selected)	$selector = "object-selector";						
+						else $selector = "";						
+
+						?>
+						<span class="object-frame <?php echo $selector; ?>" id="<?php echo $objTab[0]; ?>" alt="<?php echo $objTab[1]; ?>" title="<?php echo $objTab[1]; ?>">
+							<img class="character-maker-image-ch" name="<?php echo $objTab[0]; ?>" src="images/<?php echo $img; ?>.png" alt="<?php echo $objTab[1]; ?>" />
+							<span id="<?php echo $objTab[0]; ?>-gray" class="object-gray <?php echo $classInvisible; ?>"></span>
+							<img id="<?php echo $objTab[0]; ?>-lock" class="object-lock <?php echo $classInvisible; ?>" src="images/lock.png" />	
+							<span id="<?php echo $objTab[0]; ?>-price" class="object-price <?php echo $classInvisible; ?>"><?php echo $objTab[2]; ?></span>
+							<span class="object-image" id="<?php echo $objTab[0]; ?>" alt="<?php echo $objTab[1]; ?>" title="<?php echo $objTab[1]; ?>" onclick="updateCharacterImage(this.id, 'cup', details);"></span>
+							<span class="object-image <?php echo $classInvisible; ?>" id="<?php echo $objTab[0]; ?>-buy" alt="<?php echo $objTab[1]; ?>" title="<?php echo $objTab[1]; ?>" onclick="buyObject(this.id, 'cup', <?php echo $objTab[2]; ?>, details);"></span>
+						</span><?php							
+					}?>						
+				</p>
+				<hr/>
+
+				<p id="clothesDown"><?php						
+
+					/*couches : dessin / lock / prix*/
+
+					$selected = $user->_character->getCharacterBaseClothesDown();
+					$body = $user->_character->getCharacterBase();
+
+
+					foreach ($clothesDown as $obj) 
+					{
+						$objTab = explode("|", $obj);
+						$img = $body."/".$body.$objTab[0];
+
+						if (strpos($inventory, $objTab[0]) !== false || $objTab[2] == "0") 	$classInvisible = "isInvisible";						
+						else $classInvisible = "";
+
+						if($objTab[0] == $selected)	$selector = "object-selector";						
+						else $selector = "";						
+
+						?>
+						<span class="object-frame <?php echo $selector; ?>" id="<?php echo $objTab[0]; ?>" alt="<?php echo $objTab[1]; ?>" title="<?php echo $objTab[1]; ?>">
+							<img class="character-maker-image-ch" name="<?php echo $objTab[0]; ?>" src="images/<?php echo $img; ?>.png" alt="<?php echo $objTab[1]; ?>" />
+							<span id="<?php echo $objTab[0]; ?>-gray" class="object-gray <?php echo $classInvisible; ?>"></span>
+							<img id="<?php echo $objTab[0]; ?>-lock" class="object-lock <?php echo $classInvisible; ?>" src="images/lock.png" />	
+							<span id="<?php echo $objTab[0]; ?>-price" class="object-price <?php echo $classInvisible; ?>"><?php echo $objTab[2]; ?></span>
+							<span class="object-image" id="<?php echo $objTab[0]; ?>" alt="<?php echo $objTab[1]; ?>" title="<?php echo $objTab[1]; ?>" onclick="updateCharacterImage(this.id, 'cdo', details);"></span>
+							<span class="object-image <?php echo $classInvisible; ?>" id="<?php echo $objTab[0]; ?>-buy" alt="<?php echo $objTab[1]; ?>" title="<?php echo $objTab[1]; ?>" onclick="buyObject(this.id, 'cdo', <?php echo $objTab[2]; ?>, details);"></span>
+						</span>			
+
+						<?php
+					}
+					?>
+
+				</p>
+			</div>
+		-->
+
+		<div id="characterGuitarSection" class="characterSection isInvisible">
+
+			<!--CSSPERSO
+				<div class="circleContainer">
+					<div class="circleBlue">
+
+					</div>
+					<img alt="Character" src="images/neckwhite.png" class="circleImg" />
+				</div>
+				<h3>Guitare</h3>
+				<p id="guitars">
+					<?php
+					/*couches : dessin / lock / prix*/
+					$selectedGuitar = $user->_character->getGuitarBase();
+
+					foreach ($guitars as $guit) 
+					{
+						$guitarsTab = explode("|", $guit);
+						$img = $guitarsTab[0];
+
+						if (strpos($inventory, $guitarsTab[0]) !== false || $guitarsTab[2] == "0") 	$classInvisible = "isInvisible";						
+						else $classInvisible = "";
+
+						if($guitarsTab[0] == $selectedGuitar)	$selector = "object-selector";						
+						else $selector = "";						
+
+						?>
+						<span class="object-frame <?php echo $selector; ?>" id="<?php echo $guitarsTab[0]; ?>" alt="<?php echo $guitarsTab[1]; ?>" title="<?php echo $guitarsTab[1]; ?>">
+							<img class="character-maker-image-ch" name="<?php echo $guitarsTab[0]; ?>" src="images/<?php echo $img; ?>.png" alt="<?php echo $guitarsTab[1]; ?>" />
+							<span id="<?php echo $guitarsTab[0]; ?>-gray" class="object-gray <?php echo $classInvisible; ?>"></span>
+							<img id="<?php echo $guitarsTab[0]; ?>-lock" class="object-lock <?php echo $classInvisible; ?>" src="images/lock.png" />	
+							<span id="<?php echo $guitarsTab[0]; ?>-price" class="object-price <?php echo $classInvisible; ?>"><?php echo $guitarsTab[2]; ?></span>
+							<span class="object-image" id="<?php echo $guitarsTab[0]; ?>" alt="<?php echo $guitarsTab[1]; ?>" title="<?php echo $guitarsTab[1]; ?>" onclick="updateCharacterImage(this.id, 'guitar', details);"></span>
+							<span class="object-image <?php echo $classInvisible; ?>" id="<?php echo $guitarsTab[0]; ?>-buy" alt="<?php echo $guitarsTab[1]; ?>" title="<?php echo $guitarsTab[1]; ?>" onclick="buyObject(this.id, 'guitar', <?php echo $guitarsTab[2]; ?>, details);"></span>
+						</span>			
+
+						<?php
+					}
+					?>
+				</p>
+			-->
+
+			<div class="circleContainer">
+				<div class="circleBlue">
+
+				</div>
+				<img alt="Character" src="images/person.svg" class="circleImg" />
+			</div>
+			<h3>Aides</h3>
+
+
+			<!--<div class="subtitle">Aides</div>-->
+			<p id="potion">
+				<span class="object-frame" id="potion" alt="Potion" title="Potion">
+					<img class="character-maker-image-ch" name="potion" src="images/potion.png" alt="<?php echo $backgroundTab[1]; ?>" />
+					<span id="potion-price" class="object-price"><img style="width: 15px;padding-right: 5px;" class="" src="images/money0.png">500</span>				
+					<span class="object-image" id="potion-buy" alt="Potion" title="Potion" onclick="buyPotion(500);"></span>
+				</span>						
+			</p>
+
+		</div>
+<!--
+		<div id="characterBackgroundSection" class="characterSection isInvisible">
+			<div class="circleContainer">
+				<div class="circleBlue">
+
+				</div>
+				<img alt="Background" src="images/sun.png" class="circleImg" />
+			</div>
+			<h3>Environnements</h3>
+			<p id="backgrounds">
+				<?php
+
+				/*couches : dessin / lock / prix*/
+
+				$selectedBackground = $user->_character->getBackground();
+				foreach ($backgrounds as $background) 
+				{
+					$backgroundTab = explode("|", $background);
+					$img = $backgroundTab[0];
+
+					if (strpos($inventory, $backgroundTab[0]) !== false || $backgroundTab[2] == "0") 	$classInvisible = "isInvisible";						
+					else $classInvisible = "";
+
+					if($backgroundTab[0] == $selectedBackground)	$selector = "object-selector";						
+					else $selector = "";						
+
+					?>
+					<span class="object-frame <?php echo $selector; ?>" id="<?php echo $backgroundTab[0]; ?>" alt="<?php echo $backgroundTab[1]; ?>" title="<?php echo $backgroundTab[1]; ?>">
+						<img class="character-maker-image-ch" name="<?php echo $backgroundTab[0]; ?>" src="images/<?php echo $img; ?>.png" alt="<?php echo $backgroundTab[1]; ?>" />
+						<span id="<?php echo $backgroundTab[0]; ?>-gray" class="object-gray <?php echo $classInvisible; ?>"></span>
+						<img id="<?php echo $backgroundTab[0]; ?>-lock" class="object-lock <?php echo $classInvisible; ?>" src="images/lock.png" />	
+						<span id="<?php echo $backgroundTab[0]; ?>-price" class="object-price <?php echo $classInvisible; ?>"><?php echo $backgroundTab[2]; ?></span>
+						<span class="object-image" id="<?php echo $backgroundTab[0]; ?>" alt="<?php echo $backgroundTab[1]; ?>" title="<?php echo $backgroundTab[1]; ?>" onclick="updateCharacterImage(this.id, 'background', details);"></span>
+						<span class="object-image <?php echo $classInvisible; ?>" id="<?php echo $backgroundTab[0]; ?>-buy" alt="<?php echo $backgroundTab[1]; ?>" title="<?php echo $backgroundTab[1]; ?>" onclick="buyObject(this.id, 'background', <?php echo $backgroundTab[2]; ?>, details);"></span>
+					</span>			
+
+					<?php
+				}
+				?>
+			</p>
+		</div>
+	-->
+	<?php
+	if(isset($firstConnection) && $firstConnection == true)
+	{ 
+		?>		
+		<div class="saveButton" onclick="updateCharacter(details);$('.saveButton').addClass('saveButtonInactive');setTimeout(function(){window.location.href = 'fxm.php?page=dashboard';},1000);">Commencer</div>		
+		<?php 
+	}
+	else
+	{
+		?>		
+		<div class="saveButton saveButtonInactive" onclick="updateCharacter(details);$('.saveButton').addClass('saveButtonInactive');setTimeout(function(){window.location.href = 'fxm.php?page=dashboard';},1000);">Enregistrer</div>		
+		<?php 
+	}
+	?>
+
+	
+</div>
+</div>
+
+<div class="side-blocks">
+	<div class="side-blocks-inner">
+		<!--BLOC LATERAL DU PERSONNAGE -->
+		<div class="side-block">
+			<div class="block-content">
+				<?php include("component_characterFrame3.php"); ?>
+			</div>
+		</div>
+	</div>
+</div>
+
+</div>
+</div>
+<?php 
+include("modalFrame_Start.php"); 
+include("modalFrame_Wizard.php"); 
+?>
+
+	<!--
+				<p id="amps">
+
+					<?php
+
+				//couches : dessin / lock / prix
+
+					$selectedAmp = $user->_character->getAmp();
+
+					foreach ($amps as $amp) 
+					{
+						$ampTab = explode("|", $amp);
+						$img = $ampTab[0];
+
+						if (strpos($inventory, $ampTab[0]) !== false || $ampTab[2] == "0") 	$classInvisible = "isInvisible";						
+						else $classInvisible = "";
+						
+						if($ampTab[0] == $selectedAmp)	$selector = "object-selector";						
+						else $selector = "";
+
+						?>
+						<span class="object-frame <?php echo $selector; ?>" id="<?php echo $ampTab[0]; ?>" alt="<?php echo $ampTab[1]; ?>" title="<?php echo $ampTab[1]; ?>">
+							<img class="character-maker-image-ch" name="<?php echo $ampTab[0]; ?>" src="images/<?php echo $img; ?>.png" alt="<?php echo $ampTab[1]; ?>" />
+							<span id="<?php echo $ampTab[0]; ?>-gray" class="object-gray <?php echo $classInvisible; ?>"></span>
+							<img id="<?php echo $ampTab[0]; ?>-lock" class="object-lock <?php echo $classInvisible; ?>" src="images/lock.png" />	
+							<span id="<?php echo $ampTab[0]; ?>-price" class="object-price <?php echo $classInvisible; ?>"><?php echo $ampTab[2]; ?></span>
+							<span class="object-image" id="<?php echo $ampTab[0]; ?>" alt="<?php echo $ampTab[1]; ?>" title="<?php echo $ampTab[1]; ?>" onclick="updateCharacterImage(this.id, 'amp', details);"></span>
+							<span class="object-image <?php echo $classInvisible; ?>" id="<?php echo $ampTab[0]; ?>-buy" alt="<?php echo $ampTab[1]; ?>" title="<?php echo $ampTab[1]; ?>" onclick="buyObject(this.id, 'amp', <?php echo $ampTab[2]; ?>, details);"></span>
+						</span>			
+
+						<?php
+					}
+					?>
+				</p>
+			-->
+
+			<!--
+				<p id="access1">
+
+					<?php
+
+					$selected = $user->_character->getCharacterBaseAccess1();
+					$body = $user->_character->getCharacterBase();
+					
+
+					foreach ($access as $obj) 
+					{
+						$objTab = explode("|", $obj);
+						$img = $body."/".$body.$objTab[0];
+
+						if (strpos($inventory, $objTab[0]) !== false || $objTab[2] == "0") 	$classInvisible = "isInvisible";						
+						else $classInvisible = "";
+						
+						if($objTab[0] == $selected)	$selector = "object-selector";						
+						else $selector = "";						
+
+						?>
+						<span class="object-frame <?php echo $selector; ?>" id="<?php echo $objTab[0]; ?>" alt="<?php echo $objTab[1]; ?>" title="<?php echo $objTab[1]; ?>">
+							<img class="character-maker-image-ch" name="<?php echo $objTab[0]; ?>" src="images/<?php echo $img; ?>.png" alt="<?php echo $objTab[1]; ?>" />
+							<span id="<?php echo $objTab[0]; ?>-gray" class="object-gray <?php echo $classInvisible; ?>"></span>
+							<img id="<?php echo $objTab[0]; ?>-lock" class="object-lock <?php echo $classInvisible; ?>" src="images/lock.png" />	
+							<span id="<?php echo $objTab[0]; ?>-price" class="object-price <?php echo $classInvisible; ?>"><?php echo $objTab[2]; ?></span>
+							<span class="object-image" id="<?php echo $objTab[0]; ?>" alt="<?php echo $objTab[1]; ?>" title="<?php echo $objTab[1]; ?>" onclick="updateCharacterImage(this.id, 'access1', details);"></span>
+							<span class="object-image <?php echo $classInvisible; ?>" id="<?php echo $objTab[0]; ?>-buy" alt="<?php echo $objTab[1]; ?>" title="<?php echo $objTab[1]; ?>" onclick="buyObject(this.id, 'access1', <?php echo $objTab[2]; ?>, details);"></span>
+						</span>			
+
+						<?php
+					}
+					?>
+				</p>
+
+
+				<p id="access2">
+
+					<?php
+
+					$selected = $user->_character->getCharacterBaseAccess2();
+					$body = $user->_character->getCharacterBase();
+					
+
+					foreach ($access as $obj) 
+					{
+						$objTab = explode("|", $obj);
+						$img = $body."/".$body.$objTab[0];
+
+						if (strpos($inventory, $objTab[0]) !== false || $objTab[2] == "0") 	$classInvisible = "isInvisible";						
+						else $classInvisible = "";
+						
+						if($objTab[0] == $selected)	$selector = "object-selector";						
+						else $selector = "";						
+
+						?>
+						<span class="object-frame <?php echo $selector; ?>" id="<?php echo $objTab[0]; ?>" alt="<?php echo $objTab[1]; ?>" title="<?php echo $objTab[1]; ?>">
+							<img class="character-maker-image-ch" name="<?php echo $objTab[0]; ?>" src="images/<?php echo $img; ?>.png" alt="<?php echo $objTab[1]; ?>" />
+							<span id="<?php echo $objTab[0]; ?>-gray" class="object-gray <?php echo $classInvisible; ?>"></span>
+							<img id="<?php echo $objTab[0]; ?>-lock" class="object-lock <?php echo $classInvisible; ?>" src="images/lock.png" />	
+							<span id="<?php echo $objTab[0]; ?>-price" class="object-price <?php echo $classInvisible; ?>"><?php echo $objTab[2]; ?></span>
+							<span class="object-image" id="<?php echo $objTab[0]; ?>" alt="<?php echo $objTab[1]; ?>" title="<?php echo $objTab[1]; ?>" onclick="updateCharacterImage(this.id, 'access2', details);"></span>
+							<span class="object-image <?php echo $classInvisible; ?>" id="<?php echo $objTab[0]; ?>-buy" alt="<?php echo $objTab[1]; ?>" title="<?php echo $objTab[1]; ?>" onclick="buyObject(this.id, 'access2', <?php echo $objTab[2]; ?>, details);"></span>
+						</span>			
+
+						<?php
+					}
+					?>
+				</p>
+			-->

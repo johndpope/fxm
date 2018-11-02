@@ -1,0 +1,467 @@
+﻿/*----------------------------------*/
+/*       RESPONSIVE                 */
+/*----------------------------------*/
+@media only screen and (max-width: 800px)
+{
+	html, body{
+		background-color:#eee;
+	}
+
+
+	.qwiTitle
+	{
+		
+		text-shadow:initial;
+	}
+	.bebTitle
+	{
+		
+		text-shadow:initial;
+	}
+	.boyTitle
+	{
+		
+		text-shadow:initial;
+	}
+
+	.splash
+	{
+		padding-top: 66px;
+	}
+
+
+
+	.modal-frame, .modal-frame-wizard{
+		padding-top: 1px;
+		background-color: #F5F5F5;
+	}
+
+	.site-container, .site-content{		
+		height:100%;
+	}
+	.site-container{
+		overflow:hidden;		
+	}	
+	/* contenuer qui contient tout le site pour l'effet de poussée par le menu */
+
+	.container{
+		/*/overflow-y: scroll;*/
+	}
+/*
+	.site-pusher
+	{
+		height: 100%;
+		transition-duration: 0.3s;
+		transform:translateX(0px);
+	}
+	
+	.site-content
+	{
+		position:absolute;
+		bottom:120px;
+		top:66px;
+		height: calc(100% - 66px);
+		right:0;
+		left:0;
+		bottom:0;
+		padding-top:0;
+		overflow-y: scroll;
+		-webkit-overflow-scrolling:touch;	
+		}*/
+
+		.header
+		{
+			position:static;		
+		}
+
+		.header__icon
+		{
+			position:relative;
+			float:right;
+			display:none;
+			/*display:block;*/
+			width: 50px;
+			height: 66px;
+			cursor:pointer;
+		}
+
+
+		.header__icon::after{
+			content:'';
+			position:absolute;
+			display:block;
+			width: 1rem;
+			height: 0;
+			top: 16px;
+			left: 15px;
+			box-shadow: 0 10px 0 1px #FFF,
+			0 16px 0 1px #FFF,
+			0 22px 0 1px #FFF;
+		}
+
+
+		.header-container {
+			padding-left: 0px;
+			width:100%;
+		}
+
+
+		.credentials{
+			display:inline-block;
+		}
+
+		.mobileOnly{
+			display: block;
+		}
+
+		.menu{
+			width:100%;
+		}
+
+		.heightBuffer
+		{
+			display:none;
+		}
+
+
+	/*
+	.menu-right{
+
+		position: initial;
+		float: inherit;
+		padding-right: inherit;
+		
+		}*/
+
+
+
+
+		*/
+
+/*/*
+	.with--sidebar .menu{
+		
+	}
+	
+	.with--sidebar .site-pusher{
+		
+		transform:translateX(-250px);
+	}
+	
+	.with--sidebar .site-cache{
+		position:absolute;
+		left:0;
+		right:0;
+		top:0;
+		bottom:0;
+		background-color: rgba(0,0,0,0.2);
+	}
+	*/
+
+	
+	.main-block, .side-block, .unique-block
+	{	
+		-webkit-border-radius: 0px;
+		-moz-border-radius: 0px;
+		border-radius: 0px;
+		
+	}
+
+	.goo
+	{
+		margin: auto;
+	}
+	
+	
+	.content-container{
+		margin:auto;
+		width:100%;
+		padding-top:0px;
+
+		
+	}
+	
+	.block-container{
+		margin:0;
+	}
+
+
+	
+	
+	.main-block, .unique-block{	
+		display:inline-block;
+		width:100%;	
+		/*box-shadow: 0px 0px 1px rgba(0,0,0,0);*/
+		/*border:1px solid lightgray;*/
+		border-radius: 0px;
+		position: relative;
+		width: calc(100% - 14px);
+		top: 7px;
+		left: 7px;
+	}	
+
+
+	.modal-frame .main-block{
+		left: initial;
+
+	}
+	
+	.menu .container-frame{
+		display:block;
+	}
+
+	.menuMaker{
+		/*margin-top: -15px;*/
+	}
+
+	.makerBlocks
+	{		
+		margin-top: 20px;
+		top: 70px;
+		line-height: 35px;		
+	}
+
+
+	.saveButton{
+		position: fixed;
+		top: 98px;
+	}
+
+	.menuText{
+		padding-left: 10px;
+		display:inline-block;
+	}
+
+
+	.headSnap
+	{
+		font-size   : 28px;
+	}
+
+	.splashSnap
+	{
+		font-size   : 22px;
+	}
+
+	.subSnap
+	{
+		font-size   : 17px;
+	}
+
+	.splashBlock div
+	{
+		font-size   : 15px;
+	}
+
+
+	.piano
+	{
+		/*margin-top:0px;*/
+
+
+		/* margin-top: 0px; */
+		margin-top: -2px;
+		min-width: initial;
+	}
+
+	
+	.globalSignupZone {
+		margin-top: 66px;
+	}
+
+
+	.side-blocks {
+		/*background: #FFF6E6;*/
+		/* position: relative; */
+		/* width: 100%; */
+		/* overflow: scroll; */
+		/* max-width: 100%; */
+		/* min-width: 280px; */
+		/* display: inline-block; */
+		/* vertical-align: top; */
+		/* margin-left: 30px; */
+		/* margin: auto; */
+		/* z-index: 10; */
+		border: 0px #FFF6E6 solid;
+		/* right: 0px; */
+		/* float: initial; */
+		/* margin-left: auto; */
+		/* height: 450px; */
+		margin: 0px 15px 0px 15px;
+		/* margin-left: 15px; */
+		/* left: 15px; */
+		/* right: 5px; */
+		
+		float: initial;
+		display: none;
+		max-width: initial;
+		width: calc(100% - 14px);
+		position:relative;
+		right:7px;
+		top:7px;
+	}
+
+	.side-block
+	{
+		/*background: inherit;
+		background: inherit;
+		box-shadow: initial;
+		border-radius: initial;
+		border-bottom: 1px solid white;*/
+
+		margin-bottom:7px;
+
+	}
+	.myAdvancementButton, .menuProg
+	{
+
+		display:block
+	}
+
+}
+
+
+@media only screen and (max-width: 450px)
+{
+	.menu a{
+
+		padding: 0px;
+	}
+
+	.menu a:hover .circleNotifNumber{			
+		left: 19px !important;		
+		top: 19px !important;		
+	}
+	.circleNotifNumber{	
+		left: 19px !important;
+		top: -3px !important;
+	}
+
+	.drill-frame, .drill-name, .drill-image, .drill-speed, .sign-name
+	{
+		padding-left: 10px;
+		padding-right: 10px;
+	}
+
+	.circleGray
+	{
+		margin: 0px 1px 0px 1px;
+	}
+
+	.circleGlobal
+	{
+		width: 120px;
+	}
+
+	.splashImages01
+	{
+		
+		min-width: 100px;
+		float: none;
+		margin:auto;
+
+		padding: 20px;
+
+	}
+
+	#modalFrame_Wizard .modalFloater
+	{
+		font-size: 14px;
+		padding: 0px 0px 25px 0px;
+	}
+
+	.piano
+	{
+		height:150px;
+	}
+
+	#CD-pianokey{left: 8.57142857142857%;}
+	#DD-pianokey{left: 22.8571428571429%;}
+	#FD-pianokey{left: 51.4285714285714%;}
+	#GD-pianokey{left: 65.7142857142857%;}
+	#AD-pianokey{left: 80%;}
+
+	.blackNote{
+
+		width: 11.4285714285714%;
+
+	}
+
+	.notifications{
+		width: calc(100% - 30px);
+		/*width: 100%;*/
+	}
+
+
+}
+
+@media only screen and (max-height: 350px)
+{
+	.piano
+	{
+		
+		height:160px;
+	}
+}
+
+@media only screen and (max-width: 650px)
+{
+	.splashBlock
+	{
+		width: 90%;
+	}
+
+	.globalSignupZone {
+		background-color: initial;
+		width: 300px;
+		border-radius: 15px;
+		text-align: center;
+		padding: 10px 0px 20px 0px;
+		/* margin: auto; */
+		position: relative;
+		/* right: 5%; */
+		right: initial;
+		/* top: 100px; */
+		/* vertical-align: middle; */
+		margin: auto;
+	}
+
+	.center
+	{
+		/*display:inline-block;*/
+		/*margin-right:0px;*/
+	}
+
+	.headSnap
+	{
+
+		margin: auto;
+		padding: 10px;
+		text-align: center;
+
+	}
+
+	.subSnap
+	{
+
+		margin: auto;
+		padding: 10px;
+		text-align: center;
+		font-size: 15px;
+
+	}
+
+	.loginTitle{
+		color: white;
+	}
+
+	.loginFields {
+		font-size: 12px;
+		padding: 5px 5px 5px 10px;
+		margin-bottom: 5px;
+	}
+
+	
+
+
+}
